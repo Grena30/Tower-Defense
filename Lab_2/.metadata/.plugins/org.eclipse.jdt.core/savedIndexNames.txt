@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+/home/grena/University/OOP/Lab_2_5/Lab_2/.metadata/.plugins/org.eclipse.jdt.core
+2660104436.index
+36343314.index
+1865797976.index
