@@ -18,3 +18,25 @@
 -   **Increased Flexibility:**  We can make the variables of the class read-only or write-only depending on our requirement. If we wish to make the variables read-only then we have to omit the setter methods like setName(), setAge(), etc. from the above program or if we wish to make the variables write-only then we have to omit the get methods like getName(), getAge(), etc. from the above program
 -   **Reusability:**  Encapsulation also improves the re-usability and is easy to change with new requirements.
 -   **Testing code is easy:**  Encapsulated code is easy to test for unit testing.
+
+
+## Implementation
+**Classes:** Point, Map, MapLocation, Path, Tower, Enemy, Boss, Gold, Round, ArcherTower, ArcaneTower, ArtilleryTower
+
+- **Point** - It is concerned with coordinates and distante
+- **Map** - Creates a map a x b
+- **MapLocation** - Checks if any given coordinate is within the map's boundaries and is also related to distance
+- **Path** - Creates a path for the enemies to move through
+- **Tower** - Builds a tower given the required constraints
+- **Enemy** - Spawns an enemy with some given stats on the chosen path
+- **Boss** - An enemy with special parameters including resistance, move speed and loss of game if not defeated
+- **Gold** - Creates the in-game resource
+- **Round** - Should initiate the action that takes place in each round
+- **ArcherTower** - A tower with poison, roots
+- **ArcaneTower** - A tower with insta-kill, teleportation
+- **Artillery Tower**- A tower with area of effect attacks
+
+## Results
+
+![OOP_1](./screenshots/OOP2_1.png)
+![OOP_2](./screenshots/OOP2_2.png)
