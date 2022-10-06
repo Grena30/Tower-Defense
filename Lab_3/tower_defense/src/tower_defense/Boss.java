@@ -1,21 +1,22 @@
 package tower_defense;
 
-public class Boss {
+public class Boss extends Enemy{
 	
 	private int armor;
 	private int health;
 	private int value;
-	private MapLocation position;
 	
-	// Inherit from Enemy
 	
-	public Boss(MapLocation location, int armor, int health, int value) {
+	public Boss(int x, int y, MapLocation[] locations, int health, int armor, int value) {
+		super(x,y,locations,health,value);
 		this.armor = armor;
 		this.health = health;
 		this.value = value;
-		this.position = location;
-		System.out.println("A boss has appeared at location ("+position.pMap.x+" "+position.pMap.y+")");
-		System.out.println("With "+this.getHealth()+" health and "+this.getArmor()+" armor");
+	}
+	
+	
+	public void Stats() {
+		System.out.println("The boss has "+this.getHealth()+" health and "+this.getArmor()+" armor and will reward "+reward()+" gold");
 	}
 	
 	public void setValue(int value) {

@@ -1,29 +1,26 @@
 package tower_defense;
 
-public class Enemy {
+public class Enemy extends Path{
 	
 	public int health;
 	public int value;
-	private Path path;
 	private int pathStep = 0;
-	protected MapLocation location;
 	//path.GetLocationAt(pathStep, path);
 	
 	
-	public Enemy(MapLocation position, int health, int value) {
-		this.location = position;
+	public Enemy(int x, int y, MapLocation[] locations, int health, int value) {
+		super(x,y,locations);
 		this.value = value;
 		this.health = health;
-		System.out.println("An enemy has appeared at location ("+position.pMap.x+" "+position.pMap.y+")");
-		System.out.println("With "+this.health+" health");
-	}
-	
-	public Enemy(Path path) {
-		this.path = path;
+		this.path = locations;
 	}
 	
 	public void advance() {
 		pathStep += 1;
+	}
+	
+	public MapLocation currentLocation() {
+		return this.path[pathStep];
 	}
 	
 	public void setValue(int value) {
@@ -47,11 +44,16 @@ public class Enemy {
 	}
 	
 	public int getLocX() {
-		return this.location.pMap.x;
+		return this.x;
 	}
 	
 	public int getLocY() {
-		return this.location.pMap.y;
+		return this.y;
+	}
+	
+	public void Stats() {
+		System.out.println("The enemy has "+this.health+" health and will reward "+this.value+" gold");
+		System.out.println();
 	}
 	
 	public boolean IsNeutralized() {
@@ -63,7 +65,7 @@ public class Enemy {
 	}
 	
 	public boolean HasScored() {
-		if (this.pathStep >= this.path.Length) {
+		if (pathStep >= this.path.length) {
 			return true;
 		} else {
 			return false;
@@ -81,5 +83,6 @@ public class Enemy {
 		return this.value;
 		
 	}
+
 }
 

@@ -1,23 +1,16 @@
 package tower_defense;
 
-public class Tower {
+public class Tower extends MapLocation{
 
 	private int cost = 500;
 	private int damage = 1;
 	private int range = 3;
-	private MapLocation location;
 	private boolean upgraded = false;
 	
 	
-	public Tower(MapLocation loc, Gold resource) {
-		if (placement(resource.getGold(), cost) == true) {
-			resource.setGold(resource.getGold()-cost);
-			this.location = loc;
-			System.out.println("A tower was build at location ("+this.location.pMap.x +","+this.location.pMap.y+")");
-			System.out.println("It costed "+this.cost+" gold and it has "+this.damage+" damage and "+this.range+" range");
-		} else {
-			System.out.println("Required cost for a tower is "+cost+" while you have "+resource.getGold());
-		}
+	public Tower(int x, int y, Map map, Gold resource) {
+		super(x, y, map);
+		display(map, resource, this.upgraded);
 	}
 	
 	public boolean placement(int resource, int cost) {
@@ -28,38 +21,22 @@ public class Tower {
 		}
 	}
 	
-	public void setRange(int range) {
-		this.range = range;
+	public void display(Map map, Gold resource, boolean upgraded) {
+		if (upgraded == false) {
+		if (placement(resource.getGold(), cost) == true && map.OnMap(this.x, this.y) == true) {
+			resource.setGold(resource.getGold()-cost);
+			System.out.println("A tower was build at location ("+this.x +","+this.y+")");
+			System.out.println("It costed "+this.cost+" gold and it has "+this.damage+" damage and "+this.range+" range");
+			System.out.println();
+		} else if (placement(resource.getGold(), cost) == false){
+			System.out.println("Required cost for a tower is "+cost+" while you have "+resource.getGold());
+			System.out.println();
+		}
+		}
 	}
-	
-	
-	public void setLocation(int x, int y, Map map) {
-		location.setMapLoc(x, y, map);
-	}
-	
-	public int getLocX() {
-		return this.location.pMap.x;
-	}
-	
-	public int getLocY() {
-		return this.location.pMap.y;
-	}
-	
-	public int getRange() {
-		return this.range;
-	}
-	
-	public int getCost() {
-		return this.cost;
-	}
-	
-	public int getDmg() {
-		return this.damage;
-	}
-	
 	public void EnemyFire(Enemy[] enemies) {
 		for (Enemy enemy:enemies) {
-			if (enemy.IsActive() && location.InRangeOf(this.location, enemy.location, range)) {
+			if (enemy.IsActive() && InRangeOf(enemy.currentLocation(), range)) {
 				enemy.decrease_health(damage);
 				System.out.println("An enemy took "+damage+" damage");
 				if (enemy.IsNeutralized()) {

@@ -1,32 +1,18 @@
 package tower_defense;
 
-public class Map {
-	
-	private int width;
-	private int height;
+public class Map extends Point {
 	
 	
 	public Map(int x, int y) {
-		this.width = x;
-		this.height = y;	
-		System.out.println("A map with width "+this.width+" and height "+this.height+" was created");
+		super(x,y);
 	}
 	
-	public void setDimensions(int x, int y) {
-		this.width = x;
-		this.height = y;
-	}
-	
-	public int getDimensionX() {
-		return this.width;
-	}
-	
-	public int getDimensionY() {
-		return this.height;
+	public void displayDimensions() {
+		System.out.println("A map with width "+this.x+" and height "+this.y+" was created");
 	}
 	
 	public boolean OnMap(Point point) {
-		if (point.x >= 0 && point.x < width && point.y >= 0 && point.y < height ) {
+		if (point.x >= 0 && point.x < this.x && point.y >= 0 && point.y < this.y ) {
 			return true;
 		} else {
 			return false;
@@ -34,7 +20,7 @@ public class Map {
 	}
 	
 	public boolean OnMap(int x, int y) {
-		if (x >= 0 && x < this.width && y >= 0 && y < this.height ) {
+		if (x >= 0 && x < this.x && y >= 0 && y < this.y ) {
 			return true;
 		} else {
 			return false;

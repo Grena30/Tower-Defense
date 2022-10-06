@@ -1,12 +1,12 @@
 package tower_defense;
 
-public class ArcaneTower {
+public class ArcaneTower extends Tower {
 	
 	private boolean zap = true;
 	private int cost = 1500;
 	private int damage = 3;
 	private int range = 3;
-	private MapLocation location;
+	private boolean upgraded = true;
 	
 	// Inherit from Tower	
 	
@@ -14,14 +14,23 @@ public class ArcaneTower {
 		return this.zap;
 	}
 	
-	public ArcaneTower(MapLocation loc, Gold resource) {
+	public ArcaneTower(int x, int y, Map map, Gold resource) {
+		super(x,y,map,resource);
+		display(map, resource, this.upgraded);
+		
+	}
+	
+	public void display(Map map, Gold resource, boolean upgraded) {
+		if (upgraded == true) {
 		if (placement(resource.getGold(), cost) == true) {
 			resource.setGold(resource.getGold()-cost);
-			this.location = loc;
-			System.out.println("An arcane tower was build at location ("+this.location.pMap.x +","+this.location.pMap.y+")");
+			System.out.println("An arcane tower was build at location ("+this.x +","+this.y+")");
 			System.out.println("It costed "+this.cost+" gold and it has "+this.damage+" damage and "+this.range+" range");
+			System.out.println();
 		} else {
 			System.out.println("Required cost for an arcane tower is "+cost+" while you have "+resource.getGold());
+			System.out.println();
+		}
 		}
 	}
 	
@@ -32,25 +41,6 @@ public class ArcaneTower {
 			return true;
 		}
 	}
-	
-	public int getLocX() {
-		return this.location.pMap.x;
-	}
-	
-	public int getLocY() {
-		return this.location.pMap.y;
-	}
-	
-	public int getRange() {
-		return this.range;
-	}
-	
-	public int getCost() {
-		return this.cost;
-	}
-	
-	public int getDmg() {
-		return this.damage;
-	}		
+		
 }
 

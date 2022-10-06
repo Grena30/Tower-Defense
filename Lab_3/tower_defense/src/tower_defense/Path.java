@@ -1,13 +1,20 @@
 package tower_defense;
 
-public class Path {
+public class Path extends Map{
 	
-	private MapLocation[] path;
-	public int Length;
+	protected MapLocation[] path;
 	
-	public Path(MapLocation[] path) {
-		this.path = path;
-		this.Length = path.length;
+	public Path(int x, int y, MapLocation[] locations) {
+		super(x,y);
+		int check = 0;
+		for (MapLocation l: locations) {
+			if (OnMap(l.x,l.y) == true) {
+				check += 1;
+			}
+		}
+		if (check == locations.length) {
+			this.path = locations;
+		}
 	}
 	
 	public MapLocation GetLocationAt(int pathStep, MapLocation[] path) {

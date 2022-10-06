@@ -1,12 +1,12 @@
 package tower_defense;
 
-public class ArcherTower {
+public class ArcherTower extends Tower{
 
 	private boolean armor_penetration = true;
 	private int cost = 1500;
 	private int damage = 2;
 	private int range = 5;
-	private MapLocation location;
+	private boolean upgraded = true;
 	
 	// Inherit from Tower
 	
@@ -14,14 +14,23 @@ public class ArcherTower {
 		return this.armor_penetration;
 	}
 	
-	public ArcherTower(MapLocation loc, Gold resource) {
+	public ArcherTower(int x, int y, Map map, Gold resource) {
+		super(x,y,map,resource);
+		display(map, resource, this.upgraded);
+		
+	}
+	
+	public void display(Map map, Gold resource, boolean upgraded) {
+		if (upgraded == true) {
 		if (placement(resource.getGold(), cost) == true) {
 			resource.setGold(resource.getGold()-cost);
-			this.location = loc;
-			System.out.println("An archer tower was build at location ("+this.location.pMap.x +","+this.location.pMap.y+")");
+			System.out.println("An archer tower was build at location ("+this.x +","+this.y+")");
 			System.out.println("It costed "+this.cost+" gold and it has "+this.damage+" damage and "+this.range+" range");
+			System.out.println();
 		} else {
 			System.out.println("Required cost for an archer tower is "+cost+" while you have "+resource.getGold());
+			System.out.println();
+		}
 		}
 	}
 	
@@ -31,25 +40,5 @@ public class ArcherTower {
 		} else {
 			return true;
 		}
-	}
-	
-	public int getLocX() {
-		return this.location.pMap.x;
-	}
-	
-	public int getLocY() {
-		return this.location.pMap.y;
-	}
-	
-	public int getRange() {
-		return this.range;
-	}
-	
-	public int getCost() {
-		return this.cost;
-	}
-	
-	public int getDmg() {
-		return this.damage;
 	}
 }
