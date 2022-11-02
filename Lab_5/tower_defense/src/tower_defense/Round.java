@@ -30,36 +30,72 @@ public class Round{
 	}
 	
 	
-	public void StartSimulation() {
-		int count = 0;
+	public void StartSimulation() throws InterruptedException {
+		int count = 0, enem = 0;
 		while (this.lives.getLives() != 0) {
+			int bT = 0, aR = 0, aT = 0;
 			for (BasicTower t: this.towers) {
 				if (t == null) { 
 					continue;
 					}
-				t.MonsterFire(this.enemies, this.gold);
-				t.BossFire(this.boss, this.gold);
+				
+				if (this.enemies != null) {
+					int killed = 0;
+					for (int i = 0; i<this.enemies.length; i++) {
+						if (enemies[i].IsNeutralized() == true)
+						killed++;
+					}
+					if (killed == this.enemies.length) {
+						break;
+					}
+					if (this.boss != null) {
+						if(this.boss.IsNeutralized() == true) {
+							break;
+						}
+					}
+					System.out.println();
+					//Thread.sleep(200);
+					System.out.println("Basic tower "+(bT+1)+" is shooting");
+					System.out.println();
+					t.MonsterFire(this.enemies, this.gold);
+				}
+				if (this.boss != null && this.boss.IsNeutralized() != true) {
+					t.BossFire(this.boss, this.gold);
+				}
+				bT++;
+				
 			}
 			
 			for (ArcaneTower ar: this.artowers) {
 				if (ar == null) { 
 					continue;
 					}
-				ar.MonsterFire(this.enemies, this.gold);
+				
+				if (this.enemies != null) {
+					ar.MonsterFire(this.enemies, this.gold);
+				}
+				if (this.boss != null) {
 				ar.BossFire(this.boss, this.gold);
+				}
 			}
 			
 			for (ArcherTower at: this.attowers) {
 				if (at == null) { 
 					continue;
 					}
-				at.MonsterFire(this.enemies, this.gold);
+				
+				if (this.enemies != null) {
+					at.MonsterFire(this.enemies, this.gold);
+					}
+				if (this.boss != null) {
 				at.BossFire(this.boss, this.gold);
+				}
 			}
 				
 			for (Monster e: this.enemies) {
 				e.advance();
-				if (e.HasScored()) {
+				if (e.HasScored() && e.IsNeutralized() != true) {
+					enem++;
 					this.lives.reduceLives(1);
 					System.out.println("An enemy has scored and you have lost a life");
 					System.out.println("Available lives: "+this.lives.getLives());
@@ -69,7 +105,7 @@ public class Round{
 				}
 			}
 			
-			if (this.boss != null) {
+			if (this.boss != null && this.boss.IsNeutralized() != true) {
 				boss.advance();
 				if (this.boss.HasScored() && this.lives.getLives() > 0) {
 					this.lives.reduceLives(this.lives.getLives());
@@ -79,17 +115,24 @@ public class Round{
 			}
 			
 			if (this.lives.getLives() == 0) {
-				System.out.println("You have lost the game");
+				System.out.println();
+				System.out.println("You have lost the game!");
 				break;
 			}
 			
-			
-			
-			if (count == 15) {
-				System.out.println("You have won the game");
-				break;	
+			if (this.boss == null) {
+				if (count == 50 || enem == this.enemies.length) {
+					System.out.println();
+					System.out.println("You have won the game!");
+					break;	
+				}
+			} else if (this.boss != null) {
+				if (count == 50 || enem == this.enemies.length && this.boss.IsNeutralized() == true) {
+					System.out.println();
+					System.out.println("You have won the game!");
+					break;	
+				}
 			}
-			
 			count++;
 			
 			}

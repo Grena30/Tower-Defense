@@ -42,7 +42,7 @@ public class ArcaneTower extends Tower {
 				enemy.decrease_health(this.damage);
 				System.out.println("Monster "+c+" took "+this.damage+" damage");
 				if (enemy.IsNeutralized()) {
-					System.out.println("Monster "+c+" was killed and rewared"+enemy.value+" gold");
+					System.out.println("Monster "+c+" was killed and rewared "+enemy.value+" gold");
 					g.setGold(g.getGold() + enemy.reward());
 				} else {
 					System.out.println("Remaining health of monster "+c+" is "+enemy.health);

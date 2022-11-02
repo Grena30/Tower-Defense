@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Main {
 	
-	public static void BeginGame() {
+	public static void BeginGame() throws InterruptedException {
 		
 		System.out.println("----------------------------TOWER DEFENSE----------------------------");
 		System.out.println();
@@ -14,6 +14,11 @@ public class Main {
 		
 		
 		// class variables
+		ArcaneTower[] Arcs = new ArcaneTower[5];
+		ArcherTower[] Arts = new ArcherTower[5];
+		BasicTower[] Bts = new BasicTower[15];
+		Round[] r = new Round[100];
+		int bt=0, art=0, arc=0;
 		int round = 0;
 		int i,j,gold = 500, bCheck = 0;
 		float lives = 1;
@@ -78,29 +83,36 @@ public class Main {
 			System.out.println("2.Build a tower");
 			System.out.println("3.Check gold");
 			System.out.println("4.Check lives");
-			System.out.println("5.Check round number");
-			System.out.println("6.Display map");
-			System.out.println("7.Quit game");
+			System.out.println("5.Display map");
+			System.out.println("6.Quit game");
 			System.out.println();
 			System.out.print("Choice: ");
 			int num = sc.nextInt();
-			ArcaneTower[] Arcs = new ArcaneTower[5];
-			ArcherTower[] Arts = new ArcherTower[5];
-			BasicTower[] Bts = new BasicTower[15];
-			Round[] r = new Round[100];
-			int bt=0, art=0, arc=0;
 			switch(num) {
 				case 1:
 					if (bCheck == 1) {
+						System.out.println();
 						r[round] = new Round(Bts, Arcs, Arts, monsters, b1, g1, l1);
 						r[round].StartSimulation();
 						
 					} else {
+						System.out.println();
 						r[round] = new Round(Bts, Arcs, Arts, monsters, g1, l1);
 						r[round].StartSimulation();
 					}
-					System.out.println(round);
-					round++;
+					System.out.println();
+					System.out.println("----------------------------SIMULATION ENDED----------------------------");
+					System.out.println();
+					System.out.println("1. Quit");
+					int sim = sc.nextInt();
+					switch(sim) {
+						case 1:
+							System.exit(0);
+							break;
+						default:
+							System.exit(0);
+							break;
+					}
 					break;
 				case 2:
 					System.out.println("----------------------------TOWERS----------------------------");
@@ -194,6 +206,7 @@ public class Main {
 					}
 					break;
 				case 3:
+					System.out.println();
 					System.out.println("Available gold is "+g1.getGold());
 					System.out.println();
 					System.out.println("1. Would you like to add 2000 gold");
@@ -210,14 +223,27 @@ public class Main {
 					}
 					break;
 				case 4:
-					System.out.println(Bts[0]);
+					System.out.println();
+					System.out.println("Available lives is "+l1.getLives());
+					System.out.println();
+					System.out.println("1. Would you like to add 5 lives");
+					System.out.println("2. Leave");
+					int addLives = sc.nextInt();
+					switch(addLives) {
+						case 1:
+							l1.reduceLives(-5);
+							break;
+						case 2:
+								break;
+							default:
+								break;
+					}
 					break;
 				case 5:
-					break;
-				case 6:
+					System.out.println();
 					mDisp.PrintMap(mapCheck);
 					break;
-				case 7:
+				case 6:
 					System.exit(0);
 					break;
 				default:
@@ -227,7 +253,7 @@ public class Main {
 	}
 
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		
 		Scanner sc = new Scanner(System.in);
 		while(true) {
