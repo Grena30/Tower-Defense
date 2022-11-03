@@ -52,7 +52,7 @@ public class Main {
 		Monster[] monsters = new Monster[lenE];
 		for (i=0; i<lenE; i++) {
 			Random rand = new Random();
-			int hRand = rand.nextInt(5)+1;
+			int hRand = rand.nextInt(10)+1;
 			int gRand = hRand*100;
 			lives = (float) (lives + 0.5);
 			monsters[i] = new Monster(p1,hRand,gRand);

@@ -4,7 +4,7 @@ public class BasicTower extends Tower{
 
 	private int cost = 500;
 	private int damage = 1;
-	private int range = 3;
+	protected int range = 2;
 	protected MapLocation place;
 	private boolean upgraded = false;
 	
@@ -37,7 +37,7 @@ public class BasicTower extends Tower{
 				enemy.decrease_health(this.damage);
 				System.out.println("Monster "+c+" took "+this.damage+" damage");
 				if (enemy.IsNeutralized()) {
-					System.out.println("Monster "+c+" was killed and rewared "+enemy.value+" gold");
+					System.out.println("Monster "+c+" was killed and rewarded "+enemy.value+" gold");
 					g.setGold(g.getGold() + enemy.reward());
 				} else {
 					System.out.println("Remaining health of monster "+c+" is "+enemy.health);

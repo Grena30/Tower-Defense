@@ -39,27 +39,28 @@ public class Round{
 					continue;
 					}
 				
-				if (this.enemies != null) {
+				if (this.enemies != null && this.enemies.length > 0) {
 					int killed = 0;
 					for (int i = 0; i<this.enemies.length; i++) {
 						if (enemies[i].IsNeutralized() == true)
 						killed++;
 					}
-					if (killed == this.enemies.length) {
-						break;
-					}
-					if (this.boss != null) {
-						if(this.boss.IsNeutralized() == true) {
-							break;
-						}
-					}
+					
+					if(killed != this.enemies.length && t.place.InRangeOf(this.enemies[0].currentLocation(), t.range)) {
+						
+					
+					
 					System.out.println();
-					//Thread.sleep(200);
-					System.out.println("Basic tower "+(bT+1)+" is shooting");
+					System.out.println("Basic tower "+(bT+1)+" is shooting at the enemies");
 					System.out.println();
 					t.MonsterFire(this.enemies, this.gold);
+					}
 				}
-				if (this.boss != null && this.boss.IsNeutralized() != true) {
+				
+				if (this.boss != null && this.boss.IsNeutralized() != true && t.place.InRangeOf(boss.currentLocation(), t.range)) {
+					System.out.println();
+					System.out.println("Basic tower "+(bT+1)+" is shooting at the boss");
+					System.out.println();
 					t.BossFire(this.boss, this.gold);
 				}
 				bT++;
@@ -71,12 +72,30 @@ public class Round{
 					continue;
 					}
 				
-				if (this.enemies != null) {
+				if (this.enemies != null && this.enemies.length > 0) {
+					int killed = 0;
+					for (int i = 0; i<this.enemies.length; i++) {
+						if (enemies[i].IsNeutralized() == true)
+						killed++;
+					}
+					
+					if(killed != this.enemies.length && ar.place.InRangeOf(this.enemies[0].currentLocation(), ar.range)) {
+						
+					
+					System.out.println();
+					System.out.println("Arcane tower "+(aR+1)+" is shooting");
+					System.out.println();
 					ar.MonsterFire(this.enemies, this.gold);
+					
+					}
 				}
-				if (this.boss != null) {
-				ar.BossFire(this.boss, this.gold);
+				if (this.boss != null && this.boss.IsNeutralized() != true && ar.place.InRangeOf(boss.currentLocation(), ar.range)) {
+					System.out.println();
+					System.out.println("Arcane tower "+(aR+1)+" is shooting at the boss");
+					System.out.println();
+					ar.BossFire(this.boss, this.gold);
 				}
+				aR++;
 			}
 			
 			for (ArcherTower at: this.attowers) {
@@ -84,17 +103,52 @@ public class Round{
 					continue;
 					}
 				
-				if (this.enemies != null) {
+				if (this.enemies != null && this.enemies.length > 0) {
+					int killed = 0;
+					
+					for (int i = 0; i<this.enemies.length; i++) {
+						if (enemies[i].IsNeutralized() == true)
+						killed++;
+					}
+					
+					if (killed != this.enemies.length && at.place.InRangeOf(this.enemies[0].currentLocation(), at.range)) {
+					
+					
+					System.out.println();
+					//Thread.sleep(2500);
+					System.out.println("Archer tower "+(aT+1)+" is shooting");
+					System.out.println();
 					at.MonsterFire(this.enemies, this.gold);
 					}
-				if (this.boss != null) {
-				at.BossFire(this.boss, this.gold);
 				}
+				
+				if (this.boss != null && this.boss.IsNeutralized() != true && at.place.InRangeOf(boss.currentLocation(), at.range)) {
+					System.out.println();
+					System.out.println("Archer tower "+(aT+1)+" is shooting at the boss");
+					System.out.println();
+					at.BossFire(this.boss, this.gold);
+				}
+				aT++;
 			}
 				
 			for (Monster e: this.enemies) {
 				e.advance();
-				if (e.HasScored() && e.IsNeutralized() != true) {
+				int killed = 0;
+				for (int i = 0; i<this.enemies.length; i++) {
+					if (this.enemies[i].IsNeutralized() == true) {
+						killed++;
+					}
+				}
+				
+				if (killed == this.enemies.length) {
+					break;
+				}
+				
+				if (e.HasScored() == true && e.IsNeutralized() == false) {
+					if (enem + killed == this.enemies.length) {
+						//enem = enem + killed;
+						break;
+					}
 					enem++;
 					this.lives.reduceLives(1);
 					System.out.println("An enemy has scored and you have lost a life");

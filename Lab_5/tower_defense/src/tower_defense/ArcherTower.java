@@ -5,7 +5,7 @@ public class ArcherTower extends Tower{
 	private boolean armor_penetration = true;
 	private int cost = 1500;
 	private int damage = 2;
-	private int range = 5;
+	protected int range = 5;
 	protected MapLocation place;
 	private boolean upgraded = true;
 	
@@ -42,7 +42,7 @@ public class ArcherTower extends Tower{
 				enemy.decrease_health(this.damage);
 				System.out.println("Enemy "+c+" took "+this.damage+" damage");
 				if (enemy.IsNeutralized()) {
-					System.out.println("Enemy "+c+" was killed and rewared "+enemy.value+" gold");
+					System.out.println("Enemy "+c+" was killed and rewarded "+enemy.value+" gold");
 					g.setGold(g.getGold() + enemy.reward());
 				} else {
 					System.out.println("Remaining health of enemy "+c+" is "+enemy.health);

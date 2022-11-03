@@ -13,6 +13,10 @@ public class Point extends Map{
 		return dist;
 	}
 	public int DistanceTo(Point point) {
+		if (point != null) {
 		return DistanceTo(point.x, point.y);
+		} else {
+			return 10000;
+		}
 	}
 }
