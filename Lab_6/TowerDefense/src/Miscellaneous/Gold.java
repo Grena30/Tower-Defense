@@ -3,8 +3,6 @@ package Miscellaneous;
 public class Gold{
 
     private int resource;
-    protected int x;
-    protected int y;
 
     public Gold(int resource) {
         this.resource = resource;
@@ -15,6 +13,7 @@ public class Gold{
         this.resource = resource;
     }
 
+    public void addGold(int resource){ this.resource += resource;}
     public int getGold() {
         return this.resource;
     }

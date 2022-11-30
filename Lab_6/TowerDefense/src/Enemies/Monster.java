@@ -8,19 +8,18 @@ public class Monster implements Enemy{
     public int health;
     public int value;
     private int pathStep = 0;
-    private Path path;
-    private boolean IsBoss = false;
+    private final Path path;
 
 
     public Monster(Path path, int health, int value) {
         this.value = value;
         this.health = health;
         this.path = path;
-        display(this.IsBoss);
+        display(false);
     }
 
     public void display(boolean value) {
-        if (value == false) {
+        if (!value) {
             System.out.println("A monster has spawned, it has "+this.getHealth()+" health");
         }
     }
@@ -45,27 +44,24 @@ public class Monster implements Enemy{
         this.health = this.health - dmg;
     }
 
-
     public void Stats() {
         System.out.println("The enemy has "+this.health+" health and will reward "+this.value+" gold");
         System.out.println();
     }
 
     public boolean IsNeutralized() {
-        return (this.health <= 0) ? true : false;
+        return this.health <= 0;
     }
 
     public boolean HasScored() {
-        return (pathStep >= this.path.Length) ? true : false;
+        return pathStep >= this.path.Length;
     }
 
     public boolean IsActive() {
-        return (!(IsNeutralized() || HasScored())) ? true : false;
+        return !(IsNeutralized() || HasScored());
     }
 
     public int reward() {
         return this.value;
-
     }
-
 }

@@ -27,8 +27,8 @@ public class ArcaneTower extends Tower {
     }
 
     public void display(Map map, Gold resource, boolean upgraded) {
-        if (upgraded == true) {
-            if (placement(resource.getGold(), cost) == true) {
+        if (upgraded) {
+            if (placement(resource.getGold(), cost)) {
                 resource.setGold(resource.getGold()-cost);
                 System.out.println("An arcane tower was build at location ("+this.place.x +","+this.place.y+")");
                 System.out.println("It costed "+this.cost+" gold and it has "+this.damage+" damage and "+this.range+" range");
@@ -59,7 +59,7 @@ public class ArcaneTower extends Tower {
 
     public void BossFire(Boss boss, Gold g) {
         if (boss.IsActive() && this.place.InRangeOf(boss.currentLocation(), this.range)) {
-            if (this.getAbility() == true) {
+            if (this.getAbility()) {
                 this.zap = false;
                 System.out.println("The boss was hit with disintegration and took "+2*this.damage+" total damage");
                 boss.decrease_armor(2*this.damage);

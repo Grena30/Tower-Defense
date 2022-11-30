@@ -43,8 +43,8 @@ public class Round{
 
             if (this.enemies != null && this.enemies.length > 0) {
                 int killed = 0;
-                for (int i = 0; i<this.enemies.length; i++) {
-                    if (enemies[i].IsNeutralized())
+                for (Monster enemy : this.enemies) {
+                    if (enemy.IsNeutralized())
                         killed++;
                 }
 
@@ -70,7 +70,7 @@ public class Round{
         }
     }
 
-    public void StartSimulation() throws InterruptedException {
+    public void StartSimulation()   {
         int count = 0, enem = 0;
         while (this.lives.getLives() != 0) {
             int bT = 0, aR = 0, aT = 0;
@@ -82,8 +82,8 @@ public class Round{
 
                 if (this.enemies != null && this.enemies.length > 0) {
                     int killed = 0;
-                    for (int i = 0; i<this.enemies.length; i++) {
-                        if (enemies[i].IsNeutralized())
+                    for (Monster enemy : this.enemies) {
+                        if (enemy.IsNeutralized())
                             killed++;
                     }
 
@@ -115,8 +115,8 @@ public class Round{
 
                 if (this.enemies != null && this.enemies.length > 0) {
                     int killed = 0;
-                    for (int i = 0; i<this.enemies.length; i++) {
-                        if (enemies[i].IsNeutralized())
+                    for (Monster enemy : this.enemies) {
+                        if (enemy.IsNeutralized())
                             killed++;
                     }
 
@@ -147,8 +147,8 @@ public class Round{
                 if (this.enemies != null && this.enemies.length > 0) {
                     int killed = 0;
 
-                    for (int i = 0; i<this.enemies.length; i++) {
-                        if (enemies[i].IsNeutralized())
+                    for (Monster enemy : this.enemies) {
+                        if (enemy.IsNeutralized())
                             killed++;
                     }
 
@@ -175,8 +175,8 @@ public class Round{
             for (Monster e: this.enemies) {
                 e.advance();
                 int killed = 0;
-                for (int i = 0; i<this.enemies.length; i++) {
-                    if (this.enemies[i].IsNeutralized()) {
+                for (Monster enemy : this.enemies) {
+                    if (enemy.IsNeutralized()) {
                         killed++;
                     }
                 }

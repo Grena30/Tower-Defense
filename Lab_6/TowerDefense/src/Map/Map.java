@@ -15,10 +15,6 @@ public class Map{
     }
 
     public boolean OnMap(int x, int y) {
-        if (x >= 0 && x < this.x && y >= 0 && y < this.y ) {
-            return true;
-        } else {
-            return false;
-        }
+        return x >= 0 && x < this.x && y >= 0 && y < this.y;
     }
 }

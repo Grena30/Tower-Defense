@@ -13,6 +13,7 @@ public class Lives {
         this.lives -= lost;
     }
 
+    public void addLives(int l){ this.lives += l;}
     public int getLives() {
         return this.lives;
     }

@@ -6,20 +6,18 @@ public class Boss extends Monster{
 
     private int armor;
     public int health;
-    private int value;
-    private int pathStep = 0;
-    private boolean IsBoss = true;
+    private final int value;
 
     public Boss(Path path, int health, int armor, int value) {
         super(path,health,value);
         this.armor = armor;
         this.health = health;
         this.value = value;
-        display(IsBoss);
+        display(true);
     }
 
     public void display(boolean value) {
-        if (value == true) {
+        if (value) {
             System.out.println("The boss has spawned, it has "+this.health+" health and "+this.armor+" armor");
         }
     }
@@ -47,7 +45,7 @@ public class Boss extends Monster{
             System.out.println("The boss took "+this.armor+" armor damage and lost "+(damage -this.armor)+" health points");
             this.health = this.health - (damage - this.armor);
             this.armor = 0;
-        } else if (this.armor >= damage){
+        } else {
             this.armor = this.armor - damage;
             System.out.println("The boss took "+damage+" armor damage");
         }
@@ -64,12 +62,12 @@ public class Boss extends Monster{
 
     @Override
     public boolean IsNeutralized() {
-        return (this.health <= 0) ? true : false;
+        return this.health <= 0;
     }
 
     @Override
     public boolean IsActive() {
-        return (!(IsNeutralized() || HasScored())) ? true : false;
+        return !(IsNeutralized() || HasScored());
     }
 
 
