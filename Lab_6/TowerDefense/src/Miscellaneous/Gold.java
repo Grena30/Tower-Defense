@@ -14,6 +14,7 @@ public class Gold{
     }
 
     public void addGold(int resource){ this.resource += resource;}
+
     public int getGold() {
         return this.resource;
     }

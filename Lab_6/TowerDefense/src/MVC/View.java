@@ -4,12 +4,6 @@ import java.util.Scanner;
 
 public class View {
 
-    /*
-    Scanner sc = new Scanner(System.in);
-    int x = sc.nextInt();
-    int y = sc.nextInt();
-     */
-
     public void printBegin() {
         System.out.println("----------------------------TOWER DEFENSE----------------------------");
         System.out.println();
@@ -88,6 +82,8 @@ public class View {
         System.out.println();
         System.out.println("1. Would you like to add 5 lives");
         System.out.println("2. Leave");
+        System.out.println();
+        System.out.print("Choice: ");
         Scanner sc = new Scanner(System.in);
         return sc.nextInt();
     }
@@ -98,6 +94,8 @@ public class View {
         System.out.println();
         System.out.println("1. Would you like to add 2000 gold");
         System.out.println("2. Leave");
+        System.out.println();
+        System.out.print("Choice: ");
         Scanner sc = new Scanner(System.in);
         return sc.nextInt();
     }
@@ -115,6 +113,39 @@ public class View {
         System.out.print("Choice: ");
         Scanner sc = new Scanner(System.in);
         return sc.nextInt();
+    }
+
+    public int printTowerMenu(){
+        System.out.println("----------------------------TOWERS----------------------------");
+        System.out.println("1. Basic tower");
+        System.out.println("2. Arcane tower");
+        System.out.println("3. Archer tower");
+        System.out.println();
+        System.out.print("Choice: ");
+        Scanner sc = new Scanner(System.in);
+        return sc.nextInt();
+    }
+
+    public int[] enterTowerPlacement(){
+        System.out.print("Choose the location of your tower: ");
+        Scanner sc = new Scanner(System.in);
+        int x = sc.nextInt();
+        int y = sc.nextInt();
+        return new int[]{x,y};
+    }
+
+    public void printErrorGold(){
+        System.out.println("You do not have enough gold");
+        System.out.println();
+    }
+
+    public void printErrorPlace(){
+        System.out.println("These coordinates are invalid");
+        System.out.println();
+    }
+
+    public void printErrorChoice(){
+        System.out.println("Unknown choice");
     }
 
 

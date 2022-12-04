@@ -3,13 +3,12 @@ package Enemies;
 import Map.MapLocation;
 import Miscellaneous.Gold;
 
-public interface Enemy {
-
+public interface MonsterBoss {
     void advance();
     MapLocation currentLocation();
-    void decrease_health(int number, int damage);
+    void decrease_health(int damage);
     boolean IsNeutralized();
     boolean IsActive();
     boolean HasScored();
-    void killed(int number, Gold g);
+    void killed(Gold g);
 }

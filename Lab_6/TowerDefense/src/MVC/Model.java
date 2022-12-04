@@ -14,14 +14,20 @@ import Towers.BasicTower;
 
 import java.util.Random;
 
+import static java.lang.Math.ceil;
+import static java.lang.Math.floor;
+
 public class Model {
 
   private Round r;
   private Monster[] m;
   private Boss b = null;
   private BasicTower[] bt = new BasicTower[15];
+  private int bts = 0;
   private ArcaneTower[] ar = new ArcaneTower[15];
+  private int art = 0;
   private ArcherTower[] at = new ArcherTower[15];
+  private int att = 0;
   private Map m1;
   private Path p1;
   private MapLocation[] ml;
@@ -47,10 +53,7 @@ public class Model {
         break;
       }
     }
-  }
-
-  public void definePath(){
-    p1 = new Path(m1, ml);
+    p1 = new Path(ml);
   }
 
   public void addEnemyLength(int x){
@@ -70,6 +73,12 @@ public class Model {
     }
   }
 
+  public void ansBoss(String ans){
+    if (ans.equals("yes") || ans.equals("Yes") || ans.equals("YES")) {
+      addBoss();
+    }
+  }
+
   public void addBoss(){
     Random rand1 = new Random();
     int hRand = rand1.nextInt(5)+5;
@@ -79,24 +88,73 @@ public class Model {
     b = new Boss(p1, hRand, armRand, gRand);
   }
 
-  public void addBasicTower(int x, int y){
+  public boolean enoughGold(int num){
+    if (num == 1){
+      return gold.getGold() >= 500;
+    } else {
+      return gold.getGold() >= 1500;
+    }
+  }
 
+  public boolean validPlacings(int x, int y){
+    if (m1.OnMap(x, y)){
+      return MapCheck[x][y] == 0;
+    } else {
+      return false;
+    }
+  }
+
+  public void addBasicTower(int x, int y){
+    if (enoughGold(1) && validPlacings(x, y)) {
+      MapLocation temp = new MapLocation(x, y, m1);
+      bt[bts] = new BasicTower(temp, gold);
+      MapCheck[x][y] = 2;
+      bts++;
+    }
   }
 
   public void addArcaneTower(int x, int y){
-
+    if (enoughGold(2) && validPlacings(x, y)) {
+      MapLocation temp = new MapLocation(x, y, m1);
+      ar[art] = new ArcaneTower(temp, gold);
+      MapCheck[x][y] = 3;
+      art++;
+    }
   }
 
   public void addArcherTower(int x, int y){
-
+    if (enoughGold(2) && validPlacings(x, y)) {
+      MapLocation temp = new MapLocation(x, y, m1);
+      at[att] = new ArcherTower(temp, gold);
+      MapCheck[x][y] = 4;
+      att++;
+    }
   }
 
-  public void addLives(int x){
-    life.addLives(x);
+  public void ansLives(int x, int lives){
+    if (x == 1){
+      addLives(lives);
+    }
   }
 
-  public void addGold(int x){
-    gold.addGold(x);
+  public void addLives(int lives){
+      life.addLives(lives);
+  }
+
+  public void adjustLives(){
+    if (life.getLives() > 0){
+      life.setLives((life.getLives()/2 + 1));
+    }
+  }
+
+  public void ansGold(int x, int coins){
+    if (x == 1){
+      addGold(coins);
+    }
+  }
+
+  public void addGold(int coins){
+      gold.addGold(coins);
   }
 
   public int[][] getMap(){
@@ -111,19 +169,13 @@ public class Model {
     return life.getLives();
   }
 
-  public void startSimulation(){
+  public void startSimulation() {
     if (b != null) {
       r = new Round(bt, ar, at, m, b, gold, life);
-    }
-    else {
+    } else {
       r = new Round(bt, ar, at, m, gold, life);
     }
     r.StartSimulation();
-
-    // Add more rounds
-    // Increased health per round
-    // Boss every x rounds
   }
-
 }
 

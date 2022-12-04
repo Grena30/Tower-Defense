@@ -2,7 +2,7 @@ package Miscellaneous;
 
 public class Lives {
 
-    int lives;
+    private int lives;
 
     public Lives(int l) {
         this.lives = l;
@@ -14,6 +14,11 @@ public class Lives {
     }
 
     public void addLives(int l){ this.lives += l;}
+
+    public void setLives(int l){
+        this.lives = l;
+    }
+
     public int getLives() {
         return this.lives;
     }

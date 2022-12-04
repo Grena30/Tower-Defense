@@ -35,40 +35,6 @@ public class Round{
         this.lives = lives_;
     }
 
-    public void TowerShooting(String tower, int tow){
-        for (BasicTower t: this.towers) {
-            if (t == null) {
-                continue;
-            }
-
-            if (this.enemies != null && this.enemies.length > 0) {
-                int killed = 0;
-                for (Monster enemy : this.enemies) {
-                    if (enemy.IsNeutralized())
-                        killed++;
-                }
-
-                if(killed != this.enemies.length && t.place.InRangeOf(this.enemies[0].currentLocation(), t.range)) {
-
-
-
-                    System.out.println();
-                    System.out.println("Basic tower "+(tow+1)+" is shooting at the enemies");
-                    System.out.println();
-                    t.MonsterFire(this.enemies, this.gold);
-                }
-            }
-
-            if (this.boss != null && this.boss.IsNeutralized() && t.place.InRangeOf(boss.currentLocation(), t.range)) {
-                System.out.println();
-                System.out.println("Basic tower "+(tow+1)+" is shooting at the boss");
-                System.out.println();
-                t.BossFire(this.boss, this.gold);
-            }
-            tow++;
-
-        }
-    }
 
     public void StartSimulation()   {
         int count = 0, enem = 0;
@@ -156,7 +122,6 @@ public class Round{
 
 
                         System.out.println();
-                        //Thread.sleep(2500);
                         System.out.println("Archer tower "+(aT+1)+" is shooting");
                         System.out.println();
                         at.MonsterFire(this.enemies, this.gold);
@@ -187,7 +152,6 @@ public class Round{
 
                 if (e.HasScored() && !e.IsNeutralized()) {
                     if (enem + killed == this.enemies.length) {
-                        //enem = enem + killed;
                         break;
                     }
                     enem++;

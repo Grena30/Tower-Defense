@@ -2,26 +2,25 @@ package Enemies;
 
 import Map.MapLocation;
 import Map.Path;
+import Miscellaneous.Gold;
 
 public class Monster implements Enemy{
 
     public int health;
     public int value;
     private int pathStep = 0;
-    private final Path path;
+    final Path path;
 
 
     public Monster(Path path, int health, int value) {
         this.value = value;
         this.health = health;
         this.path = path;
-        display(false);
+        display();
     }
 
-    public void display(boolean value) {
-        if (!value) {
+    public void display() {
             System.out.println("A monster has spawned, it has "+this.getHealth()+" health");
-        }
     }
 
     public void advance() {
@@ -40,8 +39,10 @@ public class Monster implements Enemy{
         return this.health;
     }
 
-    public void decrease_health(int dmg) {
-        this.health = this.health - dmg;
+    public void decrease_health(int c, int damage) {
+
+        this.health -= damage;
+        System.out.println("Monster "+c+" took "+damage+" damage");
     }
 
     public void Stats() {
@@ -61,7 +62,12 @@ public class Monster implements Enemy{
         return !(IsNeutralized() || HasScored());
     }
 
-    public int reward() {
-        return this.value;
+    public void killed(int c, Gold g){
+        if (IsNeutralized()){
+            System.out.println("Monster "+c+" was killed and rewarded "+getValue()+" gold");
+            g.addGold(getValue());
+        } else {
+            System.out.println("Remaining health of monster "+c+" is "+getHealth());
+        }
     }
 }
